@@ -231,8 +231,12 @@ class Jailbreak:
             sent = False
             dev.set_configuration()
             while sent == False:
-                dev.ctrl_transfer(0x21, 2, 0, 0, 0)
-                dev.ctrl_transfer(0x21, 1, 0, 0, pack('I', len(data)))
+                if utils.is_linux():
+                    dev.ctrl_transfer(0x21, 1, 0, 0, 4)
+                else:
+                    dev.ctrl_transfer(0x21, 2, 0, 0, 0)
+                    dev.ctrl_transfer(0x21, 1, 0, 0, pack('I', len(data)))
+                    
                 dev.write(2, data, 100000)
                 
                 if utils.is_linux():
