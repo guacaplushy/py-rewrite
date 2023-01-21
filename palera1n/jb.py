@@ -13,6 +13,7 @@ from urllib3.exceptions import NewConnectionError
 from usb.core import find
 from usb.util import dispose_resources
 from time import sleep
+from math import floor
 
 # local imports
 from . import utils
@@ -237,7 +238,7 @@ class Jailbreak:
                     dev.ctrl_transfer(0x21, 2, 0, 0, 0)
                     dev.ctrl_transfer(0x21, 1, 0, 0, pack('I', len(data)))
                    
-                chunk_count = math.floor(len(data) / 0x800000)
+                chunk_count = floor(len(data) / 0x800000)
                 for i in range(0, chunk_count):
                     chunk = data[i:0x80000 * i]
                     dev.write(2, chunk, len(chunk))
