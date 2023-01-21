@@ -244,7 +244,7 @@ class Jailbreak:
                     dev.write(2, chunk, len(chunk))
                 
                 final_len = len(data) - (chunk_count * 0x800000)
-                dev.write(2, data[-final_len:], final_en)
+                dev.write(2, data[-final_len:], final_len)
                 
                 
                 #if utils.is_linux():
