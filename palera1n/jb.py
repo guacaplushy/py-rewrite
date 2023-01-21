@@ -236,8 +236,15 @@ class Jailbreak:
                 else:
                     dev.ctrl_transfer(0x21, 2, 0, 0, 0)
                     dev.ctrl_transfer(0x21, 1, 0, 0, pack('I', len(data)))
-                    
-                dev.write(2, data, len(data))
+                   
+                chunk_count = math.floor(len(data) / 0x800000)
+                for i in range(0, chunk_count):
+                    chunk = data[i:0x80000 * i]
+                    dev.write(2, chunk, len(chunk))
+                
+                final_len = len(data) - (chunk_count * 0x800000)
+                dev.write(2, data[-final_len:], final_en)
+                
                 
                 #if utils.is_linux():
                 #    if len(data) % 512 == 0:
