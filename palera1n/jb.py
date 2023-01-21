@@ -232,7 +232,7 @@ class Jailbreak:
             dev.set_configuration()
             while sent == False:
                 if utils.is_linux():
-                    dev.ctrl_transfer(0x21, 1, 0, 0, 4)
+                    dev.ctrl_transfer(0x21, 1, 0, 0, pack('I', len(data)))
                 else:
                     dev.ctrl_transfer(0x21, 2, 0, 0, 0)
                     dev.ctrl_transfer(0x21, 1, 0, 0, pack('I', len(data)))
